@@ -1,0 +1,16 @@
+version: '2'
+services:
+  ftps:
+    network_mode: host
+    image: ftps:1.0
+    build: .
+    restart: 'always'
+    volumes:
+      - './data:/ftproot/'
+      - './logs/vsftpd.log:/var/log/vsftpd.log'
+      - '/certs/UPDATE_ME:/etc/ssl/private/UPDATE_ME'
+      - './config/vsftpd-ftps.conf:/etc/vsftpd/vsftpd.conf'
+      - './scripts/start-server.sh:/scripts/start-server.sh'
+    command:
+      - '/scripts/start-server.sh'
+    container_name: ftps
